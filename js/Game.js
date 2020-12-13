@@ -7,13 +7,17 @@ class Game
             resizeTo: window, // привязка размера canvas к размеру окна
         });
         
-        this.screenCenter = new Vector2(0, 0);
+        this.screenMetrics = new ScreenMetrics();
 
         this.backgroundSprite = new PIXI.TilingSprite.from('img/background.png', {});
         this.app.stage.addChild(this.backgroundSprite);
 
+        this.waveDisplacementTexture = new PIXI.Texture.from('img/wave_displacement_map.png');
+        this.wavesArray = [];
+
         this.wavesSprite = new PIXI.Sprite(); // displacement map волн
         this.wavesBackground = new PIXI.Graphics(); // черный фон 
+        this.wavesSprite.filters = [new PIXI.filters.BlurFilter()];
         this.wavesSprite.addChild(this.wavesBackground);
         this.app.stage.addChild(this.wavesSprite);
 
@@ -28,13 +32,11 @@ class Game
         this.displacementFilter2 = new PIXI.filters.DisplacementFilter(this.displacementSprite2);
         this.app.stage.addChild(this.displacementSprite2);
         this.displacementSprite2.x = 100;
-
+        
         this.backgroundSprite.filters = [this.displacementFilter1, this.displacementFilter2];
 
         this.resize();
         
-        this.createWave();
-
         //запускаем игровой цикл
         this.app.ticker.add(delta => this.gameLoop(delta));
     }
@@ -47,14 +49,13 @@ class Game
         let width = window.innerWidth || document.body.clientWidth; 
         let height = window.innerHeight || document.body.clientHeight;
 
-        this.screenCenter.x = width / 2;
-        this.screenCenter.y = height / 2;
+        //перерасчёт метрик экрана
+        this.screenMetrics.dimensions.x = width;
+        this.screenMetrics.dimensions.y = height;
+        this.screenMetrics.center.x = width / 2;
+        this.screenMetrics.center.y = height / 2;
+        this.screenMetrics.maxWaveRadius = Math.sqrt(Math.pow(width / 2, 2) + Math.pow(height / 2, 2));
         
-        //изменение размера черного фона волн
-        this.wavesBackground.clear();
-        this.wavesBackground.beginFill(0x000000, 0.5);
-        this.wavesBackground.drawRect(-1, -1, width + 2, height + 2);
-
         //изменение размера фона
         this.backgroundSprite.width = width;
         this.backgroundSprite.height = height;
@@ -63,27 +64,22 @@ class Game
 
     gameLoop(delta)
     {
+        //анимация искажений на воде
         this.displacementSprite1.x += 0.6 * delta;
         this.displacementSprite1.y += 0.25 * delta;
         this.displacementSprite2.x -= 0.15 * delta;
         this.displacementSprite2.y -= 0.05 * delta;
 
-        //this.wavesSprite.scale.x += 0.01 * delta;
-        //this.wavesSprite.scale.y += 0.01 * delta;
+        // обновление волн
+        for (let wave of this.wavesArray)
+        {
+            wave.update(delta);
+        }
     }
 
     createWave()
     {
-        // this.graphics = new PIXI.Graphics();
-        // this.graphics.lineStyle(10, 0xFFBD01, 1);
-        // this.graphics.beginFill(0xC34288, 1);
-        // this.graphics.drawCircle(400, 250, 50);
-        // this.graphics.endFill();
-
-        
-        //this.waveSprite.addChild(this.graphics);
-        //this.wavesSprite.anchor.set(0.5);
-        // this.waveSprite.scale.x = 0;
-        // this.waveSprite.scale.y = 0;       
+        console.log('created wave')
+        this.wavesArray.push(new Wave(this));
     }
 }

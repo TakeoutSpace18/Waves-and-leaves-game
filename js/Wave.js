@@ -1,6 +1,6 @@
 class Wave
 {
-    constructor(game_pointer)
+    constructor(game_pointer, power)
     {
         this.p_game = game_pointer; // указатель на главный класс
         
@@ -20,17 +20,24 @@ class Wave
         this.displacementFilter = new PIXI.filters.DisplacementFilter(this.displacementSprite, 20);
         this.p_game.backgroundSprite.filters.push(this.displacementFilter);
 
+        // скорости увеличения:
+        this.radiusIncreaseSpeed = -0.000006 * Math.pow(power, 3) + 0.000536 * Math.pow(power, 2) + 0.155952 * power;
+        this.widthIncreaseSpeed = -0.000003 * Math.pow(power, 3) + 0.000254 * Math.pow(power, 2) + 0.007202 * power; 
+        this.scaleIncreaseSpeed = -0.000001 * Math.pow(power, 2) + 0.000815 * power - 0.000113;
+
         this.currentRadius = 10;
         this.currentWidth = 10;
+        this.currentOpacity = 0.3;
     }
 
     update(delta)
     {
-        this.currentRadius += 5 * delta;
-        this.currentWidth += 0.37 * delta;
+        this.currentRadius += this.radiusIncreaseSpeed * delta;
+        this.currentWidth += this.widthIncreaseSpeed * delta;
+        this.currentOpacity -= 0.0013 * delta;
 
-        this.displacementSprite.scale.x += 0.023 * delta;
-        this.displacementSprite.scale.y += 0.023 * delta;
+        this.displacementSprite.scale.x += this.scaleIncreaseSpeed * delta;
+        this.displacementSprite.scale.y += this.scaleIncreaseSpeed * delta;
 
         // Если волна вышла за пределы экрана,
         // удаляем её и всё, что для неё создали.
@@ -45,7 +52,7 @@ class Wave
 
         // Отрисовка белого круга
         this.graphics.clear();
-        this.graphics.lineStyle(this.currentWidth, 0xFFFFFF, 0.2);
+        this.graphics.lineStyle(this.currentWidth, 0xFFFFFF, this.currentOpacity);
         this.graphics.drawCircle(this.p_game.screenMetrics.center.x, this.p_game.screenMetrics.center.y, this.currentRadius);
     }
 

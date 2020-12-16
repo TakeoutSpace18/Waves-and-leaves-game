@@ -1,9 +1,12 @@
 let g_game;
 
-function Vector2(x, y)
+class Vector2
 {
-    this.x = x != null ? x : 0;
-    this.y = y != null ? y : 0;
+    constructor(x, y)
+    {
+        this.x = x; //!= null ? x : 0;
+        this.y = y; //!= null ? y : 0;
+    }
 }
 
 function ScreenMetrics(center_x, center_y, max_wave_radius, width, height)

@@ -17,8 +17,11 @@ class Game
         this.backgroundSprite = new PIXI.TilingSprite.from('img/background.png', {});
         this.app.stage.addChild(this.backgroundSprite);
 
+        //Загрузка текстур
+        this.leafTexture = new PIXI.Texture.from('img/leaf_1.png');
         this.waveDisplacementTexture = new PIXI.Texture.from('img/wave_displacement_map.png');
         this.baseDisplacementTexture = new PIXI.Texture.from('img/base_displacement_map.png');
+
         this.wavesArray = [];
 
         this.wavesSprite = new PIXI.Sprite(); // displacement map волн
@@ -43,6 +46,10 @@ class Game
 
         this.resize();
         
+        this.leaf_test = new Leaf(800, 430, this);
+        this.leaf_test.setTargetSpeed(4.0);
+        this.leaf_test.isMoving = true;
+        
         //запускаем игровой цикл
         this.app.ticker.add(delta => this.gameLoop(delta));
     }
@@ -60,7 +67,7 @@ class Game
         this.screenMetrics.dimensions.y = height;
         this.screenMetrics.center.x = width / 2;
         this.screenMetrics.center.y = height / 2;
-        this.screenMetrics.maxWaveRadius = 1.2 * Math.sqrt(Math.pow(width / 2, 2) + Math.pow(height / 2, 2));
+        this.screenMetrics.maxWaveRadius = Math.sqrt(Math.pow(width / 2, 2) + Math.pow(height / 2, 2)) * 1.2; 
         
         //изменение размера фона
         this.backgroundSprite.width = width;
@@ -88,11 +95,13 @@ class Game
         {
             wave.update(delta);
         }
+
+        this.leaf_test.update(delta);
     }
 
-    createWave()
+    createWave(power)
     {
         console.log('created wave')
-        this.wavesArray.push(new Wave(this));
+        this.wavesArray.push(new Wave(this, 30));
     }
 }

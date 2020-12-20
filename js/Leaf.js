@@ -1,5 +1,7 @@
-let acceleration = 3;
-let deceleration = 0.05;
+let friction = 0.2;
+let rotationFriction = 0.0002;
+let maxOffset = 20;
+let maxOffsetSpeed = 0.18;
 
 class Leaf
 {
@@ -7,33 +9,45 @@ class Leaf
     {
         this.p_game = game_pointer; //указатель на главный класс
 
-        this.sprite = new PIXI.Sprite(this.p_game.leavesTextures[getRandomInt(0, 6)]);
+        this.sprite = new PIXI.Sprite(this.p_game.leavesTextures[getRandomIntInclusive(1, 5)]);
         this.sprite.scale.set(3);
         this.sprite.anchor.set(0.5);
+        this.sprite.angle = getRandomInt(0, 360);
         this.sprite.alpha = 0;
         this.p_game.app.stage.addChild(this.sprite);
 
         this.wavesAffectedBy = []
 
         this.isMoving = false; //True, если тело находится под действием волны
+        this.isRotating = false; //True, если вращается
         this.inFade = true; //True, если в данный момент изменяется прозрачность
-
+        
         this.globalPosition = new Vector2(spawn_x, spawn_y);
+
+        //Сдвиг листа относительно глобальной позиции
+        this.currentOffset = new Vector2(0,0);
+        this.currentOffsetSpeed = new Vector2(0, 0);
+        this.currentOffsetSpeed.x = getRandomFloat(-maxOffsetSpeed, maxOffsetSpeed);
+        this.currentOffsetSpeed.y = getRandomFloat(-maxOffsetSpeed, maxOffsetSpeed);
+        
+
         this.distanceFromCenter = 0;
         this.calculateDistanceFromCenter();
-
+        
         //Предварительный расчет направления движения
         let x = this.globalPosition.x - this.p_game.screenMetrics.center.x;
         let y = this.globalPosition.y - this.p_game.screenMetrics.center.y;
         this.sin = Math.sin(Math.atan(x / y)) * (y / Math.abs(y));
         this.cos = Math.cos(Math.atan(x / y)) * (y / Math.abs(y));
 
-        this.targetSpeed = 0;
         this.currentSpeed = 0;
+        this.currentRotationSpeed = 0;
+        this.currentRotationDirection = 0; //Может быть -1, 0, 1
     }
 
     update(delta)
     {
+        //Постепенное проявление при появлении
         if (this.inFade)
         {
             this.sprite.alpha += 0.08 * delta;
@@ -43,33 +57,13 @@ class Leaf
             }
         }
 
+        //Обработка движения 
         if (this.isMoving)
         {
-            if (this.currentSpeed >= this.targetSpeed)
-            {
-                this.targetSpeed = 0;
-            }
-
-            let a;
-            if (this.targetSpeed == 0)
-            {
-                //Если тело замедляется, используется меньшее ускорение
-                a = -deceleration;
-            }
-            else
-            {
-                //Если тело ускоряется, используется большее ускорение
-                a = acceleration;
-            }
-
-            //Применение ускорения к текущей скорости
-            this.currentSpeed += a;
-            // this.currentSpeed = a * this.targetSpeed + (1 - a) * this.currentSpeed;
+            this.currentSpeed -= friction;
 
             if (this.currentSpeed <= 0)
             {
-                //Если скорость стала отрицательной, значит тело остановилось.
-                // (Двигаться к центру экрана тело не может) 
                 this.currentSpeed = 0;
                 this.isMoving = false;
             }
@@ -86,10 +80,34 @@ class Leaf
                 this.p_game.leavesArray.splice(index, 1);
             }
         }
+
+        //Обработка вращения
+        if (this.isRotating)
+        {
+            this.currentRotationSpeed -= rotationFriction * delta;
+            if (this.currentRotationSpeed <= 0)
+            {
+                this.currentRotationSpeed = 0;
+                this.isRotating = false;
+            }
+        }
         
+        //Обработка сдвига
+        this.currentOffset.x += this.currentOffsetSpeed.x * delta;
+        if (Math.abs(this.currentOffset.x) >= maxOffset)
+        {
+            this.currentOffsetSpeed.x = getRandomFloat(-maxOffsetSpeed, maxOffsetSpeed);
+        }
+        this.currentOffset.y += this.currentOffsetSpeed.y * delta;
+        if (Math.abs(this.currentOffset.y) >= maxOffset)
+        {
+            this.currentOffsetSpeed.y = getRandomFloat(-maxOffsetSpeed, maxOffsetSpeed);
+        }
         
-        this.sprite.x = this.globalPosition.x;
-        this.sprite.y = this.globalPosition.y;
+        //Применение полученных данных к спрайту
+        this.sprite.rotation += this.currentRotationSpeed * this.currentRotationDirection * delta;
+        this.sprite.x = this.globalPosition.x + this.currentOffset.x;
+        this.sprite.y = this.globalPosition.y + this.currentOffset.y;
     }
     
     calculateDistanceFromCenter()
@@ -99,9 +117,12 @@ class Leaf
         this.distanceFromCenter = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
     }
 
-    setTargetSpeed(target_speed)
+    setSpeed(speed)
     {
         this.isMoving = true;
-        this.targetSpeed = target_speed;
+        this.isRotating = true;
+        this.currentSpeed = speed;
+        this.currentRotationDirection = getRandomIntInclusive(-1, 1);
+        this.currentRotationSpeed = speed * 0.002;
     }
 }

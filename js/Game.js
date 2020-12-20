@@ -93,8 +93,6 @@ class Game
 
     gameLoop(delta)
     {
-        //console.log(this.leavesArray.length);
-
         //анимация искажений на воде
         this.displacementSprite1.x += 0.6 * delta;
         this.displacementSprite1.y += 0.25 * delta;
@@ -115,7 +113,7 @@ class Game
 
     createWave(power)
     {
-        this.wavesArray.push(new Wave(this, 60));
+        this.wavesArray.push(new Wave(this, 100));
     }
 
     spawnLeaves(amount)

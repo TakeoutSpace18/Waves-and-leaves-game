@@ -55,7 +55,10 @@ class Wave
             if (this.currentRadius > leaf.distanceFromCenter && leaf.wavesAffectedBy.indexOf(this) == -1)
             {
                 leaf.wavesAffectedBy.push(this);
-                leaf.setTargetSpeed(4);
+                let forceCoef = map(this.currentRadius, 0, this.p_game.screenMetrics.maxWaveRadius, 1, 0.5);
+                leaf.setSpeed(this.radiusIncreaseSpeed * forceCoef)
+                
+                ;
             }
         }
 

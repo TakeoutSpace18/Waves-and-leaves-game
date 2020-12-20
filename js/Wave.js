@@ -50,6 +50,15 @@ class Wave
             this.p_game.wavesArray.shift()
         }
 
+        for (let leaf of this.p_game.leavesArray)
+        {
+            if (this.currentRadius > leaf.distanceFromCenter && leaf.wavesAffectedBy.indexOf(this) == -1)
+            {
+                leaf.wavesAffectedBy.push(this);
+                leaf.setTargetSpeed(4);
+            }
+        }
+
         // Отрисовка белого круга
         this.graphics.clear();
         this.graphics.lineStyle(this.currentWidth, 0xFFFFFF, this.currentOpacity);

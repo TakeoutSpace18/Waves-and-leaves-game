@@ -18,7 +18,13 @@ class Game
         this.app.stage.addChild(this.backgroundSprite);
 
         //Загрузка текстур
-        this.leafTexture = new PIXI.Texture.from('img/leaf_1.png');
+        this.leavesTextures = [];
+        this.leavesTextures.push(new PIXI.Texture.from('img/leaf_1.png'));
+        this.leavesTextures.push(new PIXI.Texture.from('img/leaf_2.png'));
+        this.leavesTextures.push(new PIXI.Texture.from('img/leaf_3.png'));
+        this.leavesTextures.push(new PIXI.Texture.from('img/leaf_4.png'));
+        this.leavesTextures.push(new PIXI.Texture.from('img/leaf_5.png'));
+
         this.waveDisplacementTexture = new PIXI.Texture.from('img/wave_displacement_map.png');
         this.baseDisplacementTexture = new PIXI.Texture.from('img/base_displacement_map.png');
 
@@ -26,14 +32,6 @@ class Game
         this.leavesArray = [];
 
         this.resize();
-        
-        // this.leavesArray.push(new Leaf(800, 200, this));
-        // this.leavesArray.push(new Leaf(600, 400, this));
-        // this.leavesArray.push(new Leaf(400, 560, this));
-        // this.leavesArray.push(new Leaf(200, 800, this));
-        // this.leavesArray.push(new Leaf(1000, 430, this));
-        // this.leavesArray.push(new Leaf(1200, 670, this));
-        // this.leavesArray.push(new Leaf(1400, 340, this));
 
         this.wavesSprite = new PIXI.Sprite(); // displacement map волн
         this.wavesBackground = new PIXI.Graphics(); // черный фон 
@@ -54,11 +52,6 @@ class Game
         this.displacementSprite2.x = 100;
         
         this.backgroundSprite.filters = [this.displacementFilter1, this.displacementFilter2];
-
-        
-        // this.leaf_test = new Leaf(800, 430, this);
-        // this.leaf_test.setTargetSpeed(4.0);
-        // this.leaf_test.isMoving = true;
         
         //запускаем игровой цикл
         this.app.ticker.add(delta => this.gameLoop(delta));
@@ -118,13 +111,10 @@ class Game
         {
             leaf.update(delta);
         }
-
-        //this.leaf_test.update(delta);
     }
 
     createWave(power)
     {
-        console.log('created wave')
         this.wavesArray.push(new Wave(this, 60));
     }
 

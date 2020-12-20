@@ -7,8 +7,8 @@ class Leaf
     {
         this.p_game = game_pointer; //указатель на главный класс
 
-        this.sprite = new PIXI.Sprite(this.p_game.leafTexture);
-        this.sprite.scale.set(2);
+        this.sprite = new PIXI.Sprite(this.p_game.leavesTextures[getRandomInt(0, 6)]);
+        this.sprite.scale.set(3);
         this.sprite.anchor.set(0.5);
         this.sprite.alpha = 0;
         this.p_game.app.stage.addChild(this.sprite);

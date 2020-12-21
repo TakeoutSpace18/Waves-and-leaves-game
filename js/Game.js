@@ -19,11 +19,10 @@ class Game
 
         //Загрузка текстур
         this.leavesTextures = [];
-        this.leavesTextures.push(new PIXI.Texture.from('img/leaf_1.png'));
-        this.leavesTextures.push(new PIXI.Texture.from('img/leaf_2.png'));
-        this.leavesTextures.push(new PIXI.Texture.from('img/leaf_3.png'));
-        this.leavesTextures.push(new PIXI.Texture.from('img/leaf_4.png'));
-        this.leavesTextures.push(new PIXI.Texture.from('img/leaf_5.png'));
+        for (let i = 1; i <= 30; ++i)
+        {
+            this.leavesTextures.push(new PIXI.Texture.from('img/leaf_' + i + '.png'));
+        }
 
         this.waveDisplacementTexture = new PIXI.Texture.from('img/wave_displacement_map.png');
         this.baseDisplacementTexture = new PIXI.Texture.from('img/base_displacement_map.png');
@@ -113,7 +112,7 @@ class Game
 
     createWave(power)
     {
-        this.wavesArray.push(new Wave(this, 100));
+        this.wavesArray.push(new Wave(this, 70));
     }
 
     spawnLeaves(amount)

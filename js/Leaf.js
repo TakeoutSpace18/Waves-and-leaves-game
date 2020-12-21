@@ -9,8 +9,7 @@ class Leaf
     {
         this.p_game = game_pointer; //указатель на главный класс
 
-        this.sprite = new PIXI.Sprite(this.p_game.leavesTextures[getRandomIntInclusive(1, 5)]);
-        this.sprite.scale.set(3);
+        this.sprite = new PIXI.Sprite(this.p_game.leavesTextures[getRandomIntInclusive(1, 30)]);
         this.sprite.anchor.set(0.5);
         this.sprite.angle = getRandomInt(0, 360);
         this.sprite.alpha = 0;

@@ -12,6 +12,7 @@ function ScreenMetrics(center_x, center_y, max_wave_radius, width, height)
     this.dimensions = new Vector2(width, height);
     this.center = new Vector2(center_x, center_y);
     this.maxWaveRadius = max_wave_radius != null ? max_wave_radius : 0;
+    this.screenArea = width * height;
 }
 
 function getRandomInt(min, max)

@@ -24,6 +24,7 @@ class Wave
         this.radiusIncreaseSpeed = -0.000006 * Math.pow(power, 3) + 0.000536 * Math.pow(power, 2) + 0.155952 * power;
         this.widthIncreaseSpeed = -0.000003 * Math.pow(power, 3) + 0.000254 * Math.pow(power, 2) + 0.007202 * power; 
         this.scaleIncreaseSpeed = -0.000001 * Math.pow(power, 2) + 0.000815 * power - 0.000113;
+        this.opacityDecreaseSpeed = 0.0013;
 
         this.currentRadius = 10;
         this.currentWidth = 10;
@@ -34,7 +35,7 @@ class Wave
     {
         this.currentRadius += this.radiusIncreaseSpeed * delta;
         this.currentWidth += this.widthIncreaseSpeed * delta;
-        this.currentOpacity -= 0.0013 * delta;
+        this.currentOpacity -= this.opacityDecreaseSpeed * delta;
 
         this.displacementSprite.scale.x += this.scaleIncreaseSpeed * delta;
         this.displacementSprite.scale.y += this.scaleIncreaseSpeed * delta;
@@ -55,7 +56,7 @@ class Wave
             if (this.currentRadius > leaf.distanceFromCenter && leaf.wavesAffectedBy.indexOf(this) == -1)
             {
                 leaf.wavesAffectedBy.push(this);
-                let forceCoef = map(this.currentRadius, 0, this.p_game.screenMetrics.maxWaveRadius, 1, 0.5);
+                let forceCoef = map(this.currentRadius, 0, this.p_game.screenMetrics.maxWaveRadius, 1, 0.45);
                 leaf.setSpeed(this.radiusIncreaseSpeed * forceCoef)
                 
                 ;

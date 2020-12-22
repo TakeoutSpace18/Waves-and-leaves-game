@@ -7,6 +7,9 @@ class Game
         this.neuroplay.connect();
         this.neuroplay.on('bci', this.handleInput);
 
+        this.currentInputData = 0;
+        this.currentLeavesAmount = 0;
+
         this.app = new PIXI.Application({
             view: document.getElementById("game-canvas"),
             resizeTo: window, // привязка размера canvas к размеру окна
@@ -54,6 +57,7 @@ class Game
         
         //запускаем игровой цикл
         this.app.ticker.add(delta => this.gameLoop(delta));
+        //this.handleWavesSpawn();
     }
 
     resize() //вызывается при инменении размера окна
@@ -69,7 +73,8 @@ class Game
         this.screenMetrics.dimensions.y = height;
         this.screenMetrics.center.x = width / 2;
         this.screenMetrics.center.y = height / 2;
-        this.screenMetrics.maxWaveRadius = Math.sqrt(Math.pow(width / 2, 2) + Math.pow(height / 2, 2)) * 1.2; 
+        this.screenMetrics.maxWaveRadius = Math.sqrt(Math.pow(width / 2, 2) + Math.pow(height / 2, 2)) * 1.15; 
+        this.screenMetrics.screenArea = width * height; 
         
         //перерасчёт расстояний от центра до листьев
         for (let leaf of this.leavesArray)
@@ -80,14 +85,14 @@ class Game
         //изменение размера фона
         this.backgroundSprite.width = width;
         this.backgroundSprite.height = height;
-
     }
 
     //Обработка данных с нейроинтерфейса
     //вызывается 10 раз в секунду
     handleInput(data)
     {
-        console.log(this.leavesArray.length());
+        g_game.currentInputData = data.meditation;
+        console.log(g_game.currentInputData);
     }
 
     gameLoop(delta)
@@ -108,21 +113,41 @@ class Game
         {
             leaf.update(delta);
         }
+
+        if (this.currentLeavesAmount < 10)
+        {
+           // this.spawnLeaves(Math.floor(this.screenMetrics.screenArea / 33593));
+        }
     }
 
     createWave(power)
     {
-        this.wavesArray.push(new Wave(this, 70));
+        this.wavesArray.push(new Wave(this, power));
+    }
+
+    handleWavesSpawn()
+    {
+        let timeout = map(g_game.currentInputData, 30, 100, 3000, 1000);
+        if (g_game.currentInputData >= 30)
+        {
+            g_game.createWave(g_game.currentInputData);
+        }
+        else 
+        {
+            timeout = 500;
+        }
+        setTimeout(g_game.handleWavesSpawn, timeout);
     }
 
     spawnLeaves(amount)
     {
+        this.currentLeavesAmount += amount;
         for (let i = 0; i < amount; ++i)
         {
             let x = getRandomInt(0, this.screenMetrics.dimensions.x);
             let y = getRandomInt(0, this.screenMetrics.dimensions.y);
 
-            let timeout = getRandomInt(0, 2000);
+            let timeout = getRandomInt(0, 1500);
             setTimeout(function(){g_game.leavesArray.push(new Leaf(x, y, g_game))}, timeout)
 
         }

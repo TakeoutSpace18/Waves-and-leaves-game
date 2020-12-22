@@ -3,6 +3,7 @@ let g_game;
 window.onload = function()
 {
     g_game = new Game();
+    g_game.handleWavesSpawn();
 }
 
 window.addEventListener('resize', function()
@@ -14,7 +15,7 @@ window.addEventListener('keydown', event =>
 {
     if (event.key == 'Enter')
     {
-        g_game.createWave();
+        g_game.createWave(65);
     } 
 });
 window.addEventListener('keydown', event =>

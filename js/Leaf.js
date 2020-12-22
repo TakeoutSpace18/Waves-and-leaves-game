@@ -1,4 +1,4 @@
-let friction = 0.2;
+let friction = 0.22;
 let rotationFriction = 0.0002;
 let maxOffset = 20;
 let maxOffsetSpeed = 0.18;
@@ -77,6 +77,7 @@ class Leaf
                 this.p_game.app.stage.removeChild(this.sprite);
                 let index = this.p_game.leavesArray.indexOf(this);
                 this.p_game.leavesArray.splice(index, 1);
+                this.p_game.currentLeavesAmount--;
             }
         }
 

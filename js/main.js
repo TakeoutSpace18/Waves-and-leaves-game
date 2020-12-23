@@ -15,7 +15,7 @@ window.addEventListener('keydown', event =>
 {
     if (event.key == 'Enter')
     {
-        g_game.createWave(65);
+        g_game.createWave(100);
     } 
 });
 window.addEventListener('keydown', event =>

@@ -91,8 +91,7 @@ class Game
     //вызывается 10 раз в секунду
     handleInput(data)
     {
-        g_game.currentInputData = data.meditation;
-        console.log(g_game.currentInputData);
+        g_game.currentInputData = data.concentration;
     }
 
     gameLoop(delta)
@@ -114,9 +113,9 @@ class Game
             leaf.update(delta);
         }
 
-        if (this.currentLeavesAmount < 10)
+        if (this.currentLeavesAmount < 15)
         {
-           // this.spawnLeaves(Math.floor(this.screenMetrics.screenArea / 33593));
+           this.spawnLeaves(Math.floor(this.screenMetrics.screenArea / 33593));
         }
     }
 

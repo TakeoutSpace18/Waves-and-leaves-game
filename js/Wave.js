@@ -21,10 +21,10 @@ class Wave
         this.p_game.backgroundSprite.filters.push(this.displacementFilter);
 
         // скорости увеличения:
-        this.radiusIncreaseSpeed = -0.000006 * Math.pow(power, 3) + 0.000536 * Math.pow(power, 2) + 0.155952 * power;
-        this.widthIncreaseSpeed = -0.000003 * Math.pow(power, 3) + 0.000254 * Math.pow(power, 2) + 0.007202 * power; 
-        this.scaleIncreaseSpeed = -0.000001 * Math.pow(power, 2) + 0.000815 * power - 0.000113;
-        this.opacityDecreaseSpeed = 0.0013;
+        this.radiusIncreaseSpeed = 0.00000366 * Math.pow(power, 3) - 0.00071429 * Math.pow(power, 2) + 0.18479853 * power;
+        this.widthIncreaseSpeed = 0.0000002 * Math.pow(power, 3) - 0.0000531 * Math.pow(power, 2) + 0.0134223 * power; 
+        this.scaleIncreaseSpeed = 0.00000001 * Math.pow(power, 3) - 0.00000190 * Math.pow(power, 2) + 0.00078340 * power;
+        this.opacityDecreaseSpeed = 0.0000000015 * Math.pow(power, 3) - 0.0000003000 * Math.pow(power, 2) + 0.0000476154 * power;
 
         this.currentRadius = 10;
         this.currentWidth = 10;
@@ -51,6 +51,7 @@ class Wave
             this.p_game.wavesArray.shift()
         }
 
+        //Обработка столкновения волны с листьями
         for (let leaf of this.p_game.leavesArray)
         {
             if (this.currentRadius > leaf.distanceFromCenter && leaf.wavesAffectedBy.indexOf(this) == -1)

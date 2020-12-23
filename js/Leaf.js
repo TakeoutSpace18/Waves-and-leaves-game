@@ -14,25 +14,34 @@ class Leaf
         this.sprite.angle = getRandomInt(0, 360);
         this.sprite.alpha = 0;
         this.p_game.app.stage.addChild(this.sprite);
-
-        this.wavesAffectedBy = []
-
+        
         this.isMoving = false; //True, если тело находится под действием волны
         this.isRotating = false; //True, если вращается
         this.inFade = true; //True, если в данный момент изменяется прозрачность
         
         this.globalPosition = new Vector2(spawn_x, spawn_y);
-
+        
         //Сдвиг листа относительно глобальной позиции
         this.currentOffset = new Vector2(0,0);
         this.currentOffsetSpeed = new Vector2(0, 0);
         this.currentOffsetSpeed.x = getRandomFloat(-maxOffsetSpeed, maxOffsetSpeed);
         this.currentOffsetSpeed.y = getRandomFloat(-maxOffsetSpeed, maxOffsetSpeed);
         
-
+        
         this.distanceFromCenter = 0;
         this.calculateDistanceFromCenter();
-        
+
+        this.wavesAffectedBy = []
+
+        //Добавление уже прошедших волн в массив
+        for (let wave of this.p_game.wavesArray)
+        {
+            if (wave.currentRadius > this.distanceFromCenter)
+            {
+                this.wavesAffectedBy.push(wave);
+            }
+        }
+
         //Предварительный расчет направления движения
         let x = this.globalPosition.x - this.p_game.screenMetrics.center.x;
         let y = this.globalPosition.y - this.p_game.screenMetrics.center.y;
@@ -71,9 +80,12 @@ class Leaf
             this.globalPosition.y += this.currentSpeed * this.cos * delta;
             this.calculateDistanceFromCenter();
 
-            if (this.distanceFromCenter > this.p_game.screenMetrics.maxWaveRadius)
+            //Удаление листа, если он вышел за пределы экрана
+            if (this.globalPosition.x < -this.p_game.screenMetrics.center.x * 0.1
+                || this.globalPosition.x > this.p_game.screenMetrics.dimensions.x + this.p_game.screenMetrics.center.x * 0.1
+                || this.globalPosition.y < -this.p_game.screenMetrics.center.x * 0.1
+                || this.globalPosition.y > this.p_game.screenMetrics.dimensions.y + this.p_game.screenMetrics.center.x * 0.1)
             {
-                //Удаление листа, если он вышел за пределы экрана
                 this.p_game.app.stage.removeChild(this.sprite);
                 let index = this.p_game.leavesArray.indexOf(this);
                 this.p_game.leavesArray.splice(index, 1);

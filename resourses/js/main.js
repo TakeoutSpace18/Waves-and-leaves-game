@@ -2,7 +2,7 @@ let g_game;
 
 window.onload = function()
 {
-    g_game = new Game();
+    g_game = new windAndLeavesGame();
     g_game.handleWavesSpawn();
 }
 

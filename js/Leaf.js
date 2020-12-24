@@ -58,7 +58,7 @@ class Leaf
         //Постепенное проявление при появлении
         if (this.inFade)
         {
-            this.sprite.alpha += 0.08 * delta;
+            this.sprite.alpha += 0.055 * delta;
             if (this.sprite.alpha >= 1)
             {
                 this.inFade = false;
@@ -81,10 +81,10 @@ class Leaf
             this.calculateDistanceFromCenter();
 
             //Удаление листа, если он вышел за пределы экрана
-            if (this.globalPosition.x < -this.p_game.screenMetrics.center.x * 0.1
-                || this.globalPosition.x > this.p_game.screenMetrics.dimensions.x + this.p_game.screenMetrics.center.x * 0.1
-                || this.globalPosition.y < -this.p_game.screenMetrics.center.x * 0.1
-                || this.globalPosition.y > this.p_game.screenMetrics.dimensions.y + this.p_game.screenMetrics.center.x * 0.1)
+            if (this.globalPosition.x < -this.p_game.screenMetrics.center.x * 0.13
+                || this.globalPosition.x > this.p_game.screenMetrics.dimensions.x + this.p_game.screenMetrics.center.x * 0.13
+                || this.globalPosition.y < -this.p_game.screenMetrics.center.x * 0.13
+                || this.globalPosition.y > this.p_game.screenMetrics.dimensions.y + this.p_game.screenMetrics.center.x * 0.13)
             {
                 this.p_game.app.stage.removeChild(this.sprite);
                 let index = this.p_game.leavesArray.indexOf(this);

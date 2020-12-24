@@ -113,7 +113,7 @@ class Game
             leaf.update(delta);
         }
 
-        if (this.currentLeavesAmount < 15)
+        if (this.currentLeavesAmount < 40)
         {
            this.spawnLeaves(Math.floor(this.screenMetrics.screenArea / 33593));
         }
@@ -146,7 +146,7 @@ class Game
             let x = getRandomInt(0, this.screenMetrics.dimensions.x);
             let y = getRandomInt(0, this.screenMetrics.dimensions.y);
 
-            let timeout = getRandomInt(0, 1500);
+            let timeout = getRandomInt(0, 2500);
             setTimeout(function(){g_game.leavesArray.push(new Leaf(x, y, g_game))}, timeout)
 
         }

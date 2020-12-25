@@ -15,13 +15,6 @@ window.addEventListener('keydown', event =>
 {
     if (event.key == 'Enter')
     {
-        g_game.createWave(100);
-    } 
-});
-window.addEventListener('keydown', event =>
-{
-    if (event.key == 'Backspace')
-    {
-        g_game.spawnLeaves(30);
+        g_game.createWave(70);
     } 
 });

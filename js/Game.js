@@ -1,9 +1,7 @@
-class windAndLeavesGame// extends windAndLeavesGame
+class Game
 {
     constructor()
     {
-        //super();
-        
         //Подключение к ПО NeuroPlay
         this.neuroplay = new NeuroplayConnector();
         this.neuroplay.connect();
@@ -19,18 +17,18 @@ class windAndLeavesGame// extends windAndLeavesGame
         
         this.screenMetrics = new ScreenMetrics();
 
-        this.backgroundSprite = new PIXI.TilingSprite.from('../resourses/img/background.png', {});
+        this.backgroundSprite = new PIXI.TilingSprite.from('img/background.png', {});
         this.app.stage.addChild(this.backgroundSprite);
 
         //Загрузка текстур
         this.leavesTextures = [];
         for (let i = 1; i <= 30; ++i)
         {
-            this.leavesTextures.push(new PIXI.Texture.from('../resourses/img/leaf_' + i + '.png'));
+            this.leavesTextures.push(new PIXI.Texture.from('img/leaf_' + i + '.png'));
         }
 
-        this.waveDisplacementTexture = new PIXI.Texture.from('../resourses/img/wave_displacement_map.png');
-        this.baseDisplacementTexture = new PIXI.Texture.from('../resourses/img/base_displacement_map.png');
+        this.waveDisplacementTexture = new PIXI.Texture.from('img/wave_displacement_map.png');
+        this.baseDisplacementTexture = new PIXI.Texture.from('img/base_displacement_map.png');
 
         this.wavesArray = [];
         this.leavesArray = [];

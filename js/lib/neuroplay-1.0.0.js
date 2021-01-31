@@ -43,7 +43,9 @@ class NeuroplayConnector extends NotifyObject {
 
     cons("Connecting");
 
+
     this.socket = new WebSocket("ws://localhost:1336");
+
     var that = this;
     this.socket.onopen = function (event) {
       cons('Соединение установлено');

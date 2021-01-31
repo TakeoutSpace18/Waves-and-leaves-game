@@ -18,3 +18,11 @@ window.addEventListener('keydown', event =>
         g_game.createWave(70);
     } 
 });
+
+window.addEventListener('keydown', event =>
+{
+    if (event.key == 'Enter')
+    {
+        g_game.createWave(70);
+    } 
+});

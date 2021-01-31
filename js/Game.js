@@ -17,10 +17,15 @@ class Game
         
         this.screenMetrics = new ScreenMetrics();
 
-        this.backgroundSprite = new PIXI.TilingSprite.from('img/background.png', {});
+        //Загрузка текстур
+        
+        //Фон
+        this.currentBackgroundId = 1;
+        this.backgroundsAmount = 52;
+        this.backgroundSprite = new PIXI.TilingSprite.from('img/backgrounds/background_' + this.currentBackgroundId + '.jpg', {});
         this.app.stage.addChild(this.backgroundSprite);
 
-        //Загрузка текстур
+        //Листья
         this.leavesTextures = [];
         for (let i = 1; i <= 30; ++i)
         {
@@ -57,7 +62,6 @@ class Game
         
         //запускаем игровой цикл
         this.app.ticker.add(delta => this.gameLoop(delta));
-        //this.handleWavesSpawn();
     }
 
     resize() //вызывается при инменении размера окна
@@ -152,4 +156,18 @@ class Game
         }
     }
 
+    changeBackground(step)
+    {
+        this.currentBackgroundId += step;
+        if (this.currentBackgroundId == 0)
+        {
+            this.currentBackgroundId = this.backgroundsAmount;
+        }
+        else if (this.currentBackgroundId == this.backgroundsAmount + 1)
+        {
+            this.currentBackgroundId = 1;
+        }
+        this.backgroundSprite.texture = new PIXI.Texture.from('img/backgrounds/background_' + this.currentBackgroundId + '.jpg');
+        console.log('Current background: ' + this.currentBackgroundId);
+    }
 }

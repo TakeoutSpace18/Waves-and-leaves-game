@@ -13,8 +13,14 @@
         <script src="js/Leaf.js"></script>
     </head>
     <body style="margin: 0; padding: 0; overflow: hidden;">
+        <div id="control-panel" align="center">
+            <button onclick="g_game.changeBackground(-1);"><--</button>
+            <b>Background</b>
+            <button onclick="g_game.changeBackground(1);">--></button>
+        </div>
+        
         <div>
-            <canvas id="game-canvas"></canvas>
+            <canvas id="game-canvas" onclick="g_game.createWave(80);"></canvas>
         </div>
     </body>
 </html>

@@ -21,7 +21,7 @@ class Game
         
         //Фон
         this.currentBackgroundId = 1;
-        this.backgroundsAmount = 52;
+        this.backgroundsAmount = 31;
         this.backgroundSprite = new PIXI.TilingSprite.from('img/backgrounds/background_' + this.currentBackgroundId + '.jpg', {});
         this.app.stage.addChild(this.backgroundSprite);
 

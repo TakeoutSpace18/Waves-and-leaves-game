@@ -1,0 +1,143 @@
+    body {
+        margin: 0;
+        overflow: hidden;
+    }
+    
+    .control-panel {
+        background-color: rgb(255, 255, 255);
+    }
+    
+    .background-select {
+        display: block;
+        padding: 6px;
+        font-weight: bold;
+    }
+    
+    .menu {
+        display: block;
+        z-index: 999999;
+        margin: 0px;
+        padding: 0px;
+    }
+    
+    .menu li {
+        display: inline-block;
+        position: relative;
+    }
+    
+    .menu li.dropdown:hover>.submenu {
+        display: block;
+    }
+    
+    .menu li a {
+        display: block;
+        padding: 9px 8px;
+        background: #ccc;
+    }
+    
+    .menu li a:hover {
+        background: grey;
+    }
+    
+    .menu .submenu {
+        display: none;
+    }
+    
+    .submenu {
+        margin: 0px;
+        padding: 0px;
+        position: absolute;
+        left: 0px;
+        list-style-type: none;
+        display: block;
+        z-index: 9;
+    }
+    
+    .submenu li {
+        display: block;
+    }
+    
+    .submenu li a {
+        display: block;
+        background: #999;
+        color: #fff;
+        padding: 8px 6px;
+        margin-bottom: 1px;
+    }
+    
+    .menu .submenu>li.dropdown:hover>.submenu {
+        display: block;
+    }
+    
+    .accordion {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 14px;
+        width: 650px;
+        padding: 0px;
+        background: #fff;
+    }
+    
+    .accordion ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+    
+    .accordion li {
+        margin: 0;
+        padding: 0;
+    }
+    
+    .accordion [type=radio],
+    .accordion [type=checkbox] {
+        display: none;
+    }
+    
+    .accordion label {
+        display: block;
+        font-size: 16px;
+        line-height: 16px;
+        background: #a1fff2;
+        border: 1px solid #7c7c7c;
+        color: #000000;
+        text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.3);
+        cursor: pointer;
+        text-transform: uppercase;
+    }
+    
+    .accordion ul li label:hover,
+    .accordion [type=radio]:checked~label,
+    .accordion [type=checkbox]:checked~label {
+        background: #699eff;
+        color: #FFF;
+        text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5)
+    }
+    
+    .accordion .content {
+        padding: 0px 10px;
+        overflow: hidden;
+        border: 1px solid #fff;
+    }
+    
+    .vertical ul li {
+        overflow: hidden;
+    }
+    
+    .vertical ul li label {
+        padding: 10px;
+    }
+    
+    .vertical ul li label:hover {
+        border: 1px solid #555555;
+    }
+    
+    .vertical ul li .content {
+        height: 0px;
+        border-top: 0;
+        transition: all .4s ease-out;
+    }
+    
+    .vertical [type=checkbox]:checked~label~.content {
+        height: 200px;
+        border: 1px solid #555555;
+    }

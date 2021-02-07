@@ -1,26 +1,66 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Waves and leaves</title>
-        <link rel="icon" href="img/favicon.ico" type=”image/x-icon”>
-        <script src="js/lib/pixi.js"></script>
-        <script src="js/lib/notifyObject-1.0.0.js"></script>
-        <script src="js/lib/neuroplay-1.0.0.js"></script>
-        <script src="js/main.js"></script>
-        <script src="js/util.js"></script>
-        <script src="js/Game.js"></script>
-        <script src="js/Wave.js"></script>
-        <script src="js/Leaf.js"></script>
-    </head>
-    <body style="margin: 0; padding: 0; overflow: hidden;">
-        <div id="control-panel" align="center">
+
+<head>
+    <title>Waves and leaves</title>
+
+    <link rel="icon" href="img/favicon.ico" type=”image/x-icon”>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+
+    <script src="js/lib/pixi.js"></script>
+    <script src="js/lib/notifyObject-1.0.0.js"></script>
+    <script src="js/lib/neuroplay-1.0.0.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/util.js"></script>
+    <script src="js/Game.js"></script>
+    <script src="js/Wave.js"></script>
+    <script src="js/Leaf.js"></script>
+
+</head>
+
+<body>
+
+    <div class="control-panel">
+
+        <ul class="menu">
+            <li class="dropdown">
+                <a>Backgrounds</a>
+                <ul class="submenu">
+                    <li>
+                        <div class="accordion vertical">
+                            <ul>
+                                <li>
+                                    <input type="checkbox" id="checkbox-1" name="checkbox-accordion" checked />
+                                    <label for="checkbox-1">Камни</label>
+                                    <div class="content">
+                                        <h4>Some img here</h4>
+                                    </div>
+                                </li>
+                                <li>
+                                    <input type="checkbox" id="checkbox-2" name="checkbox-accordion" />
+                                    <label for="checkbox-2">Другие камни</label>
+                                    <div class="content">
+                                        <h4>Some img here</h4>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        </li>
+        </ul>
+
+
+        <div class="background-select">
             <button onclick="g_game.changeBackground(-1);"><--</button>
-            <b>Background</b>
+            <a>Background</a>
             <button onclick="g_game.changeBackground(1);">--></button>
         </div>
-        
-        <div>
-            <canvas id="game-canvas" onclick="g_game.createWave(80);"></canvas>
-        </div>
-    </body>
+    </div>
+
+    <canvas id="game-canvas" onclick="g_game.createWave(80);"></canvas>
+</body>
+
 </html>

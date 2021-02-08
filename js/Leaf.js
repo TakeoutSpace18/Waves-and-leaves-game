@@ -22,7 +22,7 @@ class Leaf
         this.globalPosition = new Vector2(spawn_x, spawn_y);
         
         //Сдвиг листа относительно глобальной позиции
-        this.currentOffset = new Vector2(0,0);
+        this.currentOffset = new Vector2(0, 0);
         this.currentOffsetSpeed = new Vector2(0, 0);
         this.currentOffsetSpeed.x = getRandomFloat(-maxOffsetSpeed, maxOffsetSpeed);
         this.currentOffsetSpeed.y = getRandomFloat(-maxOffsetSpeed, maxOffsetSpeed);

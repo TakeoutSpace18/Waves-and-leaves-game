@@ -8,13 +8,27 @@
     }
     
     .background-select {
-        display: block;
-        padding: 6px;
+        float: right;
+        margin-left: 200;
+        padding: 5px;
+        width: fit-content;
         font-weight: bold;
     }
     
+    .bg-miniature {
+        margin: 2px;
+        padding: 0px;
+        border-radius: 6px;
+    }
+
+    .bg-miniature:hover {
+        border: 2px solid black;
+        border-radius: 6px;
+        margin: 0px;
+    }
+
     .menu {
-        display: block;
+        display: inline-block;
         z-index: 999999;
         margin: 0px;
         padding: 0px;
@@ -31,7 +45,7 @@
     
     .menu li a {
         display: block;
-        padding: 9px 8px;
+        padding: 7px 8px;
         background: #ccc;
     }
     
@@ -72,9 +86,10 @@
     .accordion {
         font-family: Arial, Helvetica, sans-serif;
         font-size: 14px;
-        width: 650px;
+        width: max-content;
         padding: 0px;
         background: #fff;
+        border-radius: 6px;
     }
     
     .accordion ul {
@@ -114,9 +129,8 @@
     }
     
     .accordion .content {
-        padding: 0px 10px;
+        margin: 4px;
         overflow: hidden;
-        border: 1px solid #fff;
     }
     
     .vertical ul li {
@@ -134,10 +148,9 @@
     .vertical ul li .content {
         height: 0px;
         border-top: 0;
-        transition: all .4s ease-out;
+        transition: all .3s ease-out;
     }
     
     .vertical [type=checkbox]:checked~label~.content {
-        height: 200px;
-        border: 1px solid #555555;
+        height: 118px;
     }

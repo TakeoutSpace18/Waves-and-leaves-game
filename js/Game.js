@@ -10,19 +10,19 @@ class Game
         this.currentInputData = 0;
         this.currentLeavesAmount = 0;
 
-        this.app = new PIXI.Application({
+        this.app = new PIXI.Application(
+        {
             view: document.getElementById("game-canvas"),
             resizeTo: window, // привязка размера canvas к размеру окна
         });
-        
+
         this.screenMetrics = new ScreenMetrics();
 
         //Загрузка текстур
-        
         //Фон
         this.currentBackgroundId = 1;
-        this.backgroundsAmount = 31;
-        this.backgroundSprite = new PIXI.TilingSprite.from('img/backgrounds/background_' + this.currentBackgroundId + '.jpg', {});
+        this.backgroundSprite = new PIXI.TilingSprite.from(`img/backgrounds/background_${this.currentBackgroundId}.jpg`,
+        {});
         this.app.stage.addChild(this.backgroundSprite);
 
         //Листья
@@ -57,39 +57,39 @@ class Game
         this.displacementFilter2 = new PIXI.filters.DisplacementFilter(this.displacementSprite2);
         this.app.stage.addChild(this.displacementSprite2);
         this.displacementSprite2.x = 100;
-        
+
         this.backgroundSprite.filters = [this.displacementFilter1, this.displacementFilter2];
-        
+
         //запускаем игровой цикл
         this.app.ticker.add(delta => this.gameLoop(delta));
     }
 
     resize() //вызывается при инменении размера окна
-    {
-        window.scrollTo(0, 0);
-
-        //получение нового размера окна
-        let width = window.innerWidth || document.body.clientWidth; 
-        let height = window.innerHeight || document.body.clientHeight;
-
-        //перерасчёт метрик экрана
-        this.screenMetrics.dimensions.x = width;
-        this.screenMetrics.dimensions.y = height;
-        this.screenMetrics.center.x = width / 2;
-        this.screenMetrics.center.y = height / 2;
-        this.screenMetrics.maxWaveRadius = Math.sqrt(Math.pow(width / 2, 2) + Math.pow(height / 2, 2)) * 1.15; 
-        this.screenMetrics.screenArea = width * height; 
-        
-        //перерасчёт расстояний от центра до листьев
-        for (let leaf of this.leavesArray)
         {
-            leaf.calculateDistanceFromCenter();
-        }
+            window.scrollTo(0, 0);
 
-        //изменение размера фона
-        this.backgroundSprite.width = width;
-        this.backgroundSprite.height = height;
-    }
+            //получение нового размера окна
+            let width = window.innerWidth || document.body.clientWidth;
+            let height = window.innerHeight || document.body.clientHeight;
+
+            //перерасчёт метрик экрана
+            this.screenMetrics.dimensions.x = width;
+            this.screenMetrics.dimensions.y = height;
+            this.screenMetrics.center.x = width / 2;
+            this.screenMetrics.center.y = height / 2;
+            this.screenMetrics.maxWaveRadius = Math.sqrt(Math.pow(width / 2, 2) + Math.pow(height / 2, 2)) * 1.15;
+            this.screenMetrics.screenArea = width * height;
+
+            //перерасчёт расстояний от центра до листьев
+            for (let leaf of this.leavesArray)
+            {
+                leaf.calculateDistanceFromCenter();
+            }
+
+            //изменение размера фона
+            this.backgroundSprite.width = width;
+            this.backgroundSprite.height = height;
+        }
 
     //Обработка данных с нейроинтерфейса
     //вызывается 10 раз в секунду
@@ -111,7 +111,7 @@ class Game
         {
             wave.update(delta);
         }
-        
+
         for (let leaf of this.leavesArray)
         {
             leaf.update(delta);
@@ -119,7 +119,7 @@ class Game
 
         if (this.currentLeavesAmount < 40)
         {
-           this.spawnLeaves(Math.floor(this.screenMetrics.screenArea / 33593));
+            this.spawnLeaves(Math.floor(this.screenMetrics.screenArea / 33593));
         }
     }
 
@@ -135,7 +135,7 @@ class Game
         {
             g_game.createWave(g_game.currentInputData);
         }
-        else 
+        else
         {
             timeout = 500;
         }
@@ -151,23 +151,34 @@ class Game
             let y = getRandomInt(0, this.screenMetrics.dimensions.y);
 
             let timeout = getRandomInt(0, 2500);
-            setTimeout(function(){g_game.leavesArray.push(new Leaf(x, y, g_game))}, timeout)
+            setTimeout(function()
+            {
+                g_game.leavesArray.push(new Leaf(x, y, g_game))
+            }, timeout)
 
         }
     }
 
+    setBackground(id)
+    {
+        this.currentBackgroundId = id;
+        this.backgroundSprite.texture = new PIXI.Texture.from(`img/backgrounds/background_${this.currentBackgroundId}.jpg`);
+        console.log('Current background: ' + this.currentBackgroundId);
+    }
+
+    //Удалить в будущем
     changeBackground(step)
     {
         this.currentBackgroundId += step;
         if (this.currentBackgroundId == 0)
         {
-            this.currentBackgroundId = this.backgroundsAmount;
+            this.currentBackgroundId = backgroundsAmount;
         }
-        else if (this.currentBackgroundId == this.backgroundsAmount + 1)
+        else if (this.currentBackgroundId == backgroundsAmount + 1)
         {
             this.currentBackgroundId = 1;
         }
-        this.backgroundSprite.texture = new PIXI.Texture.from('img/backgrounds/background_' + this.currentBackgroundId + '.jpg');
+        this.backgroundSprite.texture = new PIXI.Texture.from(`img/backgrounds/background_${this.currentBackgroundId}.jpg`);
         console.log('Current background: ' + this.currentBackgroundId);
     }
 }

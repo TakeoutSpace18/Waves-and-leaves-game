@@ -2,14 +2,16 @@
         margin: 0;
         overflow: hidden;
     }
-    
+
     .control-panel {
         background-color: rgb(255, 255, 255);
+        display: block;
+
     }
     
     .background-select {
         float: right;
-        margin-left: 200;
+        margin-left: 200px;
         padding: 5px;
         width: fit-content;
         font-weight: bold;

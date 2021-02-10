@@ -1,12 +1,13 @@
 let g_game;
-let backgroundsAmount = 31;
+let BACKGROUNDS_AMOUNT = 31;
+let LEAF_TEXTURES_AMOUNT = 50;
 
 window.onload = function()
 {
     g_game = new Game();
 
     //Установка атрибутов на миниатюры фонов в HTML 
-    for (let i = 1; i <= backgroundsAmount; ++i)
+    for (let i = 1; i <= BACKGROUNDS_AMOUNT; ++i)
     {
         let img_element = document.getElementById(i);
         img_element.onclick = function()

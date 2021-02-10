@@ -9,10 +9,13 @@ class Leaf
     {
         this.p_game = game_pointer; //указатель на главный класс
 
-        this.sprite = new PIXI.Sprite(this.p_game.leavesTextures[getRandomIntInclusive(1, 30)]);
+        this.sprite = new PIXI.Sprite(this.p_game.leavesTextures[getRandomIntInclusive(0, LEAF_TEXTURES_AMOUNT - 1)]);
+        
         this.sprite.anchor.set(0.5);
+        this.sprite.scale.set(getRandomFloat(0.8, 1));
         this.sprite.angle = getRandomInt(0, 360);
         this.sprite.alpha = 0;
+
         this.p_game.app.stage.addChild(this.sprite);
         
         this.isMoving = false; //True, если тело находится под действием волны

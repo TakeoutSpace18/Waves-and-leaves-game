@@ -27,9 +27,9 @@ class Game
 
         //Листья
         this.leavesTextures = [];
-        for (let i = 1; i <= 30; ++i)
+        for (let i = 1; i <= LEAF_TEXTURES_AMOUNT; ++i)
         {
-            this.leavesTextures.push(new PIXI.Texture.from('img/leaf_' + i + '.png'));
+            this.leavesTextures.push(new PIXI.Texture.from(`img/leaves/leaf_${i}.png`));
         }
 
         this.waveDisplacementTexture = new PIXI.Texture.from('img/wave_displacement_map.png');
@@ -172,9 +172,9 @@ class Game
         this.currentBackgroundId += step;
         if (this.currentBackgroundId == 0)
         {
-            this.currentBackgroundId = backgroundsAmount;
+            this.currentBackgroundId = BACKGROUNDS_AMOUNT;
         }
-        else if (this.currentBackgroundId == backgroundsAmount + 1)
+        else if (this.currentBackgroundId == BACKGROUNDS_AMOUNT + 1)
         {
             this.currentBackgroundId = 1;
         }

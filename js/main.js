@@ -1,5 +1,5 @@
 let g_game;
-let BACKGROUNDS_AMOUNT = 31;
+let BACKGROUNDS_AMOUNT = 10;
 let LEAF_TEXTURES_AMOUNT = 50;
 
 window.onload = function()
@@ -40,3 +40,14 @@ window.addEventListener('keydown', event =>
         g_game.createWave(70);
     }
 });
+
+window.onfocus = function()
+{
+    g_game.hasFocus = true;
+    g_game.handleWavesSpawn();
+}
+
+window.onblur = function()
+{
+    g_game.hasFocus = false;
+}

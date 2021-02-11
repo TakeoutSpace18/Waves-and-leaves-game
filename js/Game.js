@@ -17,6 +17,7 @@ class Game
         });
 
         this.screenMetrics = new ScreenMetrics();
+        this.hasFocus = true; // Активно ли окно
 
         //Загрузка текстур
         //Фон
@@ -139,7 +140,11 @@ class Game
         {
             timeout = 500;
         }
-        setTimeout(g_game.handleWavesSpawn, timeout);
+        
+        if (g_game.hasFocus)
+        {
+            setTimeout(g_game.handleWavesSpawn, timeout);
+        }
     }
 
     spawnLeaves(amount)

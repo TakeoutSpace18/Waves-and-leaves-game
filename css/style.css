@@ -11,15 +11,31 @@
     
     .background-select {
         float: right;
-        margin-left: 200px;
         padding: 5px;
         width: fit-content;
         font-weight: bold;
     }
     
+    #indicator {
+        float: right;
+        margin-right: 30px;
+        margin-top: 6px;
+        width: fit-content;
+        border: 1px solid black;
+        border-radius: 15px;
+
+    }
+
+    #indicator #indicator-bg {
+        background: linear-gradient(to right, #00CC00, #FF0000);
+        width: 230px;
+        height: 18px;
+        border-radius: 15px;
+        clip-path: inset(0px 230px 0px 0px);
+    }
+
     .bg-miniature {
         margin: 2px;
-        padding: 0px;
         border-radius: 6px;
     }
 

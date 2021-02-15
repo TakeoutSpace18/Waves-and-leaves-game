@@ -10,6 +10,9 @@ class Game
         this.currentInputData = 0;
         this.currentLeavesAmount = 0;
 
+        this.indicatorBgElement = document.getElementById('indicator-bg');
+        this.indicatorWidth = this.indicatorBgElement.getBoundingClientRect().width;
+
         this.app = new PIXI.Application(
         {
             view: document.getElementById("game-canvas"),
@@ -97,6 +100,9 @@ class Game
     handleInput(data)
     {
         g_game.currentInputData = data.concentration;
+        let newIndicatorLevel = map(data.concentration, 0, 100, g_game.indicatorWidth, 0);
+        g_game.indicatorBgElement.style.clipPath = `inset(0px ${newIndicatorLevel}px 0px 0px)`;
+        console.log(newIndicatorLevel)
     }
 
     gameLoop(delta)

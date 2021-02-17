@@ -8,10 +8,13 @@ class Game
         this.neuroplay.on('bci', this.handleInput);
 
         this.currentInputData = 0;
+        this.maxInputData = 0;
         this.currentLeavesAmount = 0;
 
+        //HTML элементы
         this.indicatorBgElement = document.getElementById('indicator-bg');
         this.indicatorWidth = this.indicatorBgElement.getBoundingClientRect().width;
+        this.indicatorMaxMarker = document.getElementById('max-marker');
 
         this.app = new PIXI.Application(
         {
@@ -100,8 +103,17 @@ class Game
     handleInput(data)
     {
         g_game.currentInputData = data.concentration;
+
         let newIndicatorLevel = map(data.concentration, 0, 100, g_game.indicatorWidth, 0);
         g_game.indicatorBgElement.style.clipPath = `inset(0px ${newIndicatorLevel}px 0px 0px)`;
+
+        if (g_game.currentInputData > g_game.maxInputData)
+        {
+            g_game.maxInputData = g_game.currentInputData;
+            let newMaxLevel = map(g_game.maxInputData, 0, 100, 0, g_game.indicatorWidth) - 5
+            g_game.indicatorMaxMarker.style.left = `${newMaxLevel}px`;
+        }
+
         console.log(newIndicatorLevel)
     }
 

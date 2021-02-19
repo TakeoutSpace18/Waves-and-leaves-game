@@ -93,6 +93,8 @@ class Leaf
                 let index = this.p_game.leavesArray.indexOf(this);
                 this.p_game.leavesArray.splice(index, 1);
                 this.p_game.currentLeavesAmount--;
+                this.p_game.removedLeavesAmount++;
+                this.p_game.removedLeavesElement.innerHTML = this.p_game.removedLeavesAmount;
             }
         }
 

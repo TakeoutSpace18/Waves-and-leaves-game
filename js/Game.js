@@ -10,11 +10,13 @@ class Game
         this.currentInputData = 0;
         this.maxInputData = 0;
         this.currentLeavesAmount = 0;
+        this.removedLeavesAmount = 0;
 
         //HTML элементы
         this.indicatorBgElement = document.getElementById('indicator-bg');
         this.indicatorWidth = this.indicatorBgElement.getBoundingClientRect().width;
         this.indicatorMaxMarker = document.getElementById('max-marker');
+        this.removedLeavesElement = document.getElementById('removed-leaves-value')
 
         this.app = new PIXI.Application(
         {

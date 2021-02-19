@@ -1,6 +1,8 @@
     body {
         margin: 0;
         overflow: hidden;
+        font-family: sans-serif;
+        font: Helvetica;
     }
 
     .control-panel {
@@ -16,6 +18,18 @@
         font-weight: bold;
     }
     
+    #leaves-counter {
+        float: left;
+        margin-left: 30px;
+        margin-top: 2px;
+    }
+
+    #leaves-counter #removed-leaves-value {
+        padding: 0px 5px;
+        font-size: 25px;
+        font-weight: bold;
+    }
+
     #indicator {
         position: relative;
         float: right;
@@ -58,10 +72,10 @@
     }
 
     .menu {
-        display: inline-block;
         z-index: 999999;
         margin: 0px;
         padding: 0px;
+        float: left;
     }
     
     .menu li {
@@ -76,11 +90,12 @@
     .menu li a {
         display: block;
         padding: 7px 8px;
-        background: #ccc;
+        width: 250px;
+        background: #a1fff2;
     }
     
     .menu li a:hover {
-        background: grey;
+        background: #699eff;
     }
     
     .menu .submenu {

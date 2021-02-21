@@ -20,12 +20,12 @@
     
     #leaves-counter {
         float: left;
-        margin-left: 30px;
+        margin-left: 10px;
         margin-top: 2px;
     }
 
     #leaves-counter #removed-leaves-value {
-        padding: 0px 5px;
+        padding: 0px 2px;
         font-size: 25px;
         font-weight: bold;
     }
@@ -33,7 +33,7 @@
     #indicator {
         position: relative;
         float: right;
-        margin-right: 30px;
+        margin-right: 10px;
         margin-top: 6px;
         width: fit-content;
         border: 1px solid rgb(0, 0, 0);
@@ -42,10 +42,10 @@
     
     #indicator #indicator-bg {
         background: linear-gradient(to right, #00CC00, #FF0000);
-        width: 250px;
+        width: 350px;
         height: 18px;
         border-radius: 15px;
-        clip-path: inset(0px 250px 0px 0px);
+        clip-path: inset(0px 350px 0px 0px);
         transition: all .3s ease;
     }
     
@@ -90,7 +90,7 @@
     .menu li a {
         display: block;
         padding: 7px 8px;
-        width: 250px;
+        width: 260px;
         background: #a1fff2;
     }
     
@@ -193,9 +193,9 @@
     .vertical ul li .content {
         height: 0px;
         border-top: 0;
-        transition: all .3s ease-out;
+        transition: all .3s ease-in-out;
     }
     
     .vertical [type=checkbox]:checked~label~.content {
-        height: 118px;
+        height: 235px;
     }

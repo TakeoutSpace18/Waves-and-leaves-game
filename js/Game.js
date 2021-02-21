@@ -27,13 +27,23 @@ class Game
         this.screenMetrics = new ScreenMetrics();
         this.hasFocus = true; // Активно ли окно
 
-        //Загрузка текстур
-        //Фон
-        this.currentBackgroundId = 1;
-        this.backgroundSprite = new PIXI.TilingSprite.from(`img/backgrounds/background_${this.currentBackgroundId}.jpg`,
-        {});
+        //Загрузка фона
+        this.currentBackgroundId = null;
+        this.backgroundSprite = new PIXI.TilingSprite;
         this.app.stage.addChild(this.backgroundSprite);
 
+        let chosenBg = getCookie("chosenBackground")
+        if (chosenBg)
+        {
+            //Установка ранее стоявшего фона
+            this.setBackground(chosenBg)
+        }
+        else
+        {
+            this.setBackground(1);
+        }
+                
+        //Загрузка текстур
         //Листья
         this.leavesTextures = [];
         for (let i = 1; i <= LEAF_TEXTURES_AMOUNT; ++i)
@@ -188,22 +198,9 @@ class Game
     {
         this.currentBackgroundId = id;
         this.backgroundSprite.texture = new PIXI.Texture.from(`img/backgrounds/background_${this.currentBackgroundId}.jpg`);
-        console.log('Current background: ' + this.currentBackgroundId);
-    }
 
-    //Удалить в будущем
-    changeBackground(step)
-    {
-        this.currentBackgroundId += step;
-        if (this.currentBackgroundId == 0)
-        {
-            this.currentBackgroundId = BACKGROUNDS_AMOUNT;
-        }
-        else if (this.currentBackgroundId == BACKGROUNDS_AMOUNT + 1)
-        {
-            this.currentBackgroundId = 1;
-        }
-        this.backgroundSprite.texture = new PIXI.Texture.from(`img/backgrounds/background_${this.currentBackgroundId}.jpg`);
+        //Сохранение информации о выбранном фоне. Удалится через год.
+        document.cookie = `chosenBackground=${id}; max-age=${365 * 24 * 60 * 60}`;
         console.log('Current background: ' + this.currentBackgroundId);
     }
 }

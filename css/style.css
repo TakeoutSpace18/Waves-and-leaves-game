@@ -1,8 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora:wght@500&display=swap');    
     body {
         margin: 0;
         overflow: hidden;
-        font-family: sans-serif;
-        font: Helvetica;
+        font-family: 'Lora', serif;
     }
 
     .control-panel {
@@ -21,7 +21,7 @@
     #leaves-counter {
         float: left;
         margin-left: 10px;
-        margin-top: 2px;
+        margin-top: 1px;
     }
 
     #leaves-counter #removed-leaves-value {
@@ -33,7 +33,7 @@
     #indicator {
         position: relative;
         float: right;
-        margin-right: 10px;
+        margin-right: 100px;
         margin-top: 6px;
         width: fit-content;
         border: 1px solid rgb(0, 0, 0);
@@ -41,7 +41,7 @@
     }
     
     #indicator #indicator-bg {
-        background: linear-gradient(to right, #00CC00, #FF0000);
+        background: linear-gradient(to right, #b1ffa8, #1a830f);
         width: 350px;
         height: 18px;
         border-radius: 15px;
@@ -89,13 +89,16 @@
     
     .menu li a {
         display: block;
-        padding: 7px 8px;
+        font-size: 17px;
+        padding: 5px 8px;
+        height: 24px;
         width: 260px;
-        background: #a1fff2;
+        background: #74E868;
     }
     
     .menu li a:hover {
-        background: #699eff;
+        color: #FFF;
+        background: #329027;
     }
     
     .menu .submenu {
@@ -129,7 +132,6 @@
     }
     
     .accordion {
-        font-family: Arial, Helvetica, sans-serif;
         font-size: 14px;
         width: max-content;
         padding: 0px;
@@ -157,7 +159,7 @@
         display: block;
         font-size: 16px;
         line-height: 16px;
-        background: #a1fff2;
+        background: #74E868;
         border: 1px solid #7c7c7c;
         color: #000000;
         text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.3);
@@ -168,7 +170,7 @@
     .accordion ul li label:hover,
     .accordion [type=radio]:checked~label,
     .accordion [type=checkbox]:checked~label {
-        background: #699eff;
+        background: #329027;
         color: #FFF;
         text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5)
     }

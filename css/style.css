@@ -8,7 +8,7 @@
     .control-panel {
         background-color: rgb(255, 255, 255);
         display: block;
-
+        height:min-content;
     }
     
     .background-select {
@@ -31,12 +31,12 @@
     }
 
     #indicator {
-        position: relative;
+        margin-right: 15px;
         float: right;
-        margin-right: 100px;
         margin-top: 6px;
         width: fit-content;
         border: 1px solid rgb(0, 0, 0);
+        position: relative;
         border-radius: 10px;
     }
     
@@ -199,5 +199,5 @@
     }
     
     .vertical [type=checkbox]:checked~label~.content {
-        height: 235px;
+        height: 117px;
     }

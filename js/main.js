@@ -1,5 +1,5 @@
 let g_game;
-let BACKGROUNDS_AMOUNT = 31;
+let BACKGROUNDS_AMOUNT = 30;
 let LEAF_TEXTURES_AMOUNT = 39;
 
 window.onload = function()

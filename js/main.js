@@ -33,6 +33,8 @@ window.addEventListener('keydown', event =>
     }
 });
 
+window.addEventListener("touchstart", g_game.createWave(70), false);
+
 window.onfocus = function()
 {
     g_game.hasFocus = true;

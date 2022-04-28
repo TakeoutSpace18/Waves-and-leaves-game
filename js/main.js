@@ -33,7 +33,7 @@ window.addEventListener('keydown', event =>
     }
 });
 
-window.addEventListener("touchstart", g_game.createWave(70), false);
+window.getElementById("game-canvas").addEventListener("touchstart", g_game.createWave(70), false);
 
 window.onfocus = function()
 {
